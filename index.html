@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Web Project Ideas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-btn:hover {
+            background: #6e8efb;
+            color: white;
+        }
+        
+        .filter-btn.active {
+            background: #6e8efb;
+            color: white;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-image {
+            height: 180px;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .project-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-number {
+            display: inline-block;
+            background: #6e8efb;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #444;
+            font-size: 1.4rem;
+        }
+        
+        .project-card p {
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .skill-tag {
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .difficulty {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .difficulty-dots {
+            display: flex;
+            gap: 5px;
+            margin-left: 10px;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+        
+        .dot.filled {
+            background: #6e8efb;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .view-btn {
+            background: #6e8efb;
+            color: white;
+        }
+        
+        .view-btn:hover {
+            background: #5a7de0;
+        }
+        
+        .save-btn {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+        
+        .save-btn:hover {
+            background: #d0d9f7;
+        }
+        
+        .project-detail {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .project-detail h2 {
+            margin-bottom: 20px;
+            color: #444;
+        }
+        
+        .project-detail p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: #6e8efb;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Beginner Web Development Projects</h1>
+            <p class="intro">Start your web development journey with these practical project ideas that will help you build fundamental skills. No backend needed - just HTML, CSS, and JavaScript!</p>
+        </header>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="html">HTML/CSS</button>
+            <button class="filter-btn" data-filter="js">JavaScript</button>
+            <button class="filter-btn" data-filter="easy">Easy</button>
+            <button class="filter-btn" data-filter="medium">Medium</button>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card" data-skills="html" data-difficulty="easy">
+                <div class="project-image">Portfolio</div>
+                <div class="project-content">
+                    <span class="project-number">1</span>
+                    <h3>Personal Portfolio</h3>
+                    <p>Create a website to showcase your skills, projects, and resume. This is a great way to practice structuring content and making it visually appealing.</p>
+                    <div class="skills">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">Layout</span>
+                    </div>
+                    <div class="difficulty">
+                        Difficulty: 
+                        <div class="difficulty-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn view-btn" data-project="1">View Details</button>
+                        <button class="btn save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-skills="html" data-difficulty="easy">
+                <div class="project-image">Recipe Blog</div>
+                <div class="project-content">
+                    <span class="project-number">2</span>
+                    <h3>Recipe Blog</h3>
+                    <p>Build a blog to share your favorite recipes. Practice working with images, formatting text, and creating a responsive design.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Images</span>
+                        <span class="skill-tag">Text Formatting</span>
+                        <span class="skill-tag">Responsive Design</span>
+                    </div>
+                    <div class="difficulty">
+                        Difficulty: 
+                        <div class="difficulty-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn view-btn" data-project="2">View Details</button>
+                        <button class="btn save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-skills="html js" data-difficulty="medium">
+                <div class="project-image">Business Site</div>
+                <div class="project-content">
+                    <span class="project-number">3</span>
+                    <h3>Local Business Site</h3>
+                    <p>Design a website for a fictional local business like a coffee shop or bookstore. Practice creating contact forms and displaying business information.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Forms</span>
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">Information Architecture</span>
+                    </div>
+                    <div class="difficulty">
+                        Difficulty: 
+                        <div class="difficulty-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn view-btn" data-project="3">View Details</button>
+                        <button class="btn save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-skills="html js" data-difficulty="medium">
+                <div class="project-image">Travel Journal</div>
+                <div class="project-content">
+                    <span class="project-number">4</span>
+                    <h3>Travel Journal</h3>
+                    <p>Create a digital journal of places you've visited or want to visit. Practice layout design, embedding maps, and creating photo galleries.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Layout</span>
+                        <span class="skill-tag">Media Embedding</span>
+                        <span class="skill-tag">Galleries</span>
+                    </div>
+                    <div class="difficulty">
+                        Difficulty: 
+                        <div class="difficulty-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn view-btn" data-project="4">View Details</button>
+                        <button class="btn save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-skills="html js" data-difficulty="medium">
+                <div class="project-image">Event Page</div>
+                <div class="project-content">
+                    <span class="project-number">5</span>
+                    <h3>Event Invitation</h3>
+                    <p>Design a page for a fictional event like a wedding or conference. Practice creating RSVP forms and displaying date/time information.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Forms</span>
+                        <span class="skill-tag">Typography</span>
+                        <span class="skill-tag">Date/Time Display</span>
+                    </div>
+                    <div class="difficulty">
+                        Difficulty: 
+                        <div class="difficulty-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn view-btn" data-project="5">View Details</button>
+                        <button class="btn save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-skills="html js" data-difficulty="medium">
+                <div class="project-image">Book Reviews</div>
+                <div class="project-content">
+                    <span class="project-number">6</span>
+                    <h3>Book Review Site</h3>
+                    <p>Build a site to share reviews of books you've read. Practice content organization, creating rating systems, and comment sections.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Content Organization</span>
+                        <span class="skill-tag">Rating Systems</span>
+                        <span class="skill-tag">User Interaction</span>
+                    </div>
+                    <div class="difficulty">
+                        Difficulty: 
+                        <div class="difficulty-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn view-btn" data-project="6">View Details</button>
+                        <button class="btn save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="project-detail" class="project-detail">
+            <!-- Project details will be displayed here -->
+        </div>
+        
+        <footer>
+            <p>Choose a project that interests you and start building! Remember to focus on one concept at a time.</p>
+            <p>All of these projects can be created with just HTML, CSS, and JavaScript - no backend needed!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Project details data
+        const projectDetails = {
+            1: {
+                title: "Personal Portfolio Website",
+                description: "A personal portfolio is the perfect first project to showcase your skills and work. It's a practical project that you can continue to update as you learn more.",
+                skills: ["HTML", "CSS", "Layout Design"],
+                difficulty: "Easy",
+                features: [
+                    "Homepage with introduction",
+                    "Projects showcase section",
+                    "Skills and abilities section",
+                    "About me page",
+                    "Contact information"
+                ],
+                tips: [
+                    "Keep the design clean and professional",
+                    "Make sure it's mobile-responsive",
+                    "Include your actual projects as you complete them",
+                    "Add a professional photo of yourself"
+                ]
+            },
+            2: {
+                title: "Recipe Blog",
+                description: "A recipe blog allows you to practice working with images, text formatting, and creating an appealing layout for content-heavy sites.",
+                skills: ["Images", "Text Formatting", "Responsive Design"],
+                difficulty: "Easy",
+                features: [
+                    "Recipe categories navigation",
+                    "Individual recipe pages with images",
+                    "Ingredient lists and instructions",
+                    "Comment section for each recipe",
+                    "Search functionality"
+                ],
+                tips: [
+                    "Use high-quality food images",
+                    "Organize recipes into categories",
+                    "Make sure your measurements are consistent",
+                    "Include preparation and cooking times"
+                ]
+            },
+            3: {
+                title: "Local Business Website",
+                description: "Create a website for a fictional local business to practice designing for real-world clients and organizing business information effectively.",
+                skills: ["Forms", "UI Design", "Information Architecture"],
+                difficulty: "Medium",
+                features: [
+                    "Homepage with business overview",
+                    "Products/Services page",
+                    "Contact form with validation",
+                    "Business hours and location",
+                    "Customer testimonials section"
+                ],
+                tips: [
+                    "Research similar business websites for inspiration",
+                    "Make contact information easy to find",
+                    "Include a clear call-to-action on each page",
+                    "Ensure the site works well on mobile devices"
+                ]
+            }
+        };
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                document.querySelectorAll('.project-card').forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'flex';
+                    } else if (filter === 'easy' || filter === 'medium') {
+                        if (card.getAttribute('data-difficulty') === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    } else {
+                        if (card.getAttribute('data-skills').includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // View details functionality
+        document.querySelectorAll('.view-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const projectId = button.getAttribute('data-project');
+                const detail = projectDetails[projectId];
+                const detailContainer = document.getElementById('project-detail');
+                
+                if (detail) {
+                    detailContainer.innerHTML = `
+                        <a href="#" class="back-btn" id="back-btn">← Back to Projects</a>
+                        <h2>${detail.title}</h2>
+                        <p>${detail.description}</p>
+                        
+                        <h3>Skills Practiced</h3>
+                        <div class="skills">
+                            ${detail.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                        
+                        <h3>Difficulty: ${detail.difficulty}</h3>
+                        
+                        <h3>Key Features to Implement</h3>
+                        <ul>
+                            ${detail.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        
+                        <h3>Tips for Success</h3>
+                        <ul>
+                            ${detail.tips.map(tip => `<li>${tip}</li>`).join('')}
+                        </ul>
+                    `;
+                    
+                    detailContainer.style.display = 'block';
+                    
+                    // Scroll to detail section
+                    detailContainer.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Back button functionality
+                    document.getElementById('back-btn').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        detailContainer.style.display = 'none';
+                    });
+                }
+            });
+        });
+
+        // Save button functionality
+        document.querySelectorAll('.save-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                button.textContent = 'Saved!';
+                button.style.background = '#c0f0c0';
+                button.style.color = '#2e7d32';
+                
+                setTimeout(() => {
+                    button.textContent = 'Save';
+                    button.style.background = '#e0e7ff';
+                    button.style.color = '#4f46e5';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
